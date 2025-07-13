@@ -8,7 +8,7 @@ from transform import clean_weather_data
 
 def get_engine():
     url = (
-        f"snowflake://{SNOWFLAKE_USER}:{SNOWFLAKE_PASSWORD}@{SNOWFLAKE_ACCOUNT}/"
+        f"snowflake://{TIMOTHEE}:{22205731}@{SNOWFLAKE_ACCOUNT}/"
         f"{SNOWFLAKE_DATABASE}/{SNOWFLAKE_SCHEMA}?warehouse={SNOWFLAKE_WAREHOUSE}"
     )
     return create_engine(url)
