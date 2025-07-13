@@ -8,3 +8,10 @@ MONGO_URI = "mongodb+srv://timotheenkwar16:22205731@pipeline.v8oxp4b.mongodb.net
 MONGO_DB = "weatherDB"
 MONGO_COLLECTION = "raw_weather"
 
+
+SNOWFLAKE_USER = "timothee"
+SNOWFLAKE_PASSWORD = "TonMotDePasseSécurisé"
+SNOWFLAKE_ACCOUNT = "kpjoeld-vfb30885"
+SNOWFLAKE_DATABASE = "weather"
+SNOWFLAKE_SCHEMA = "db_weather"
+SNOWFLAKE_WAREHOUSE = "POWER"
