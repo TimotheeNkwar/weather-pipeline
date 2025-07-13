@@ -53,7 +53,15 @@ def load_to_snowflake(df, table_name="weather_data"):
     conn.close()
     print(f"{len(df)} lignes insérées dans {table_name} ✅")
 
+
 if __name__ == "__main__":
     df_mongo = read_mongo(limit=100)
     df_clean = clean_weather_data(df_mongo)
+
+    # 🔥 Fix datetime problem
+    df_clean = df_clean.copy()
+    for col in df_clean.select_dtypes(include=['datetime64[ns]', 'datetime64[ns, UTC]']).columns:
+        df_clean[col] = df_clean[col].astype(str)
+
     load_to_snowflake(df_clean)
+
