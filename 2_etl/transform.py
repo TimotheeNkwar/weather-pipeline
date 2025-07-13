@@ -1,7 +1,9 @@
 # weather-pipeline/2_etl/transform.py
 
+import pandas as pd  # ✅ Import manquant
+
+
 def clean_weather_data(df):
-    # Sélection des colonnes importantes
     records = []
     for _, row in df.iterrows():
         city = row.get("name")

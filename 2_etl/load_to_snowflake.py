@@ -1,29 +1,57 @@
 # weather-pipeline/2_etl/load_to_snowflake.py
 
-import pandas as pd
-from sqlalchemy import create_engine
-from config import (
-    SNOWFLAKE_USER,
-    SNOWFLAKE_PASSWORD,
-    SNOWFLAKE_ACCOUNT,
-    SNOWFLAKE_DATABASE,
-    SNOWFLAKE_SCHEMA,
-    SNOWFLAKE_WAREHOUSE
-)
 from mongo_to_df import read_mongo
 from transform import clean_weather_data
-
-def get_engine():
-    url = (
-        f"snowflake://{SNOWFLAKE_USER}:{SNOWFLAKE_PASSWORD}@{SNOWFLAKE_ACCOUNT}/"
-        f"{SNOWFLAKE_DATABASE}/{SNOWFLAKE_SCHEMA}?warehouse={SNOWFLAKE_WAREHOUSE}"
-    )
-    return create_engine(url)
+import snowflake.connector
+from config import *
+import pandas as pd
 
 def load_to_snowflake(df, table_name="weather_data"):
-    engine = get_engine()
-    df.to_sql(table_name, engine, if_exists='append', index=False)
-    print(f"{len(df)} lignes insérées dans {table_name}.")
+    conn = snowflake.connector.connect(
+        user=SNOWFLAKE_USER,
+        password=SNOWFLAKE_PASSWORD,
+        account=SNOWFLAKE_ACCOUNT,
+        warehouse=SNOWFLAKE_WAREHOUSE,
+        database=SNOWFLAKE_DATABASE,
+        schema=SNOWFLAKE_SCHEMA
+    )
+
+    cursor = conn.cursor()
+
+    # Création de la table si elle n'existe pas
+    create_stmt = f"""
+    CREATE TABLE IF NOT EXISTS {table_name} (
+        city STRING,
+        temperature FLOAT,
+        humidity INT,
+        pressure INT,
+        weather_main STRING,
+        weather_description STRING,
+        fetched_at TIMESTAMP
+    )
+    """
+    cursor.execute(create_stmt)
+
+    # Insertion ligne par ligne
+    for _, row in df.iterrows():
+        insert_stmt = f"""
+        INSERT INTO {table_name} (city, temperature, humidity, pressure, weather_main, weather_description, fetched_at)
+        VALUES (%s, %s, %s, %s, %s, %s, %s)
+        """
+        cursor.execute(insert_stmt, (
+            row['city'],
+            row['temperature'],
+            row['humidity'],
+            row['pressure'],
+            row['weather_main'],
+            row['weather_description'],
+            row['fetched_at']
+        ))
+
+    conn.commit()
+    cursor.close()
+    conn.close()
+    print(f"{len(df)} lignes insérées dans {table_name} ✅")
 
 if __name__ == "__main__":
     df_mongo = read_mongo(limit=100)

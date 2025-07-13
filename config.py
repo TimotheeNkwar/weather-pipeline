@@ -10,7 +10,7 @@ MONGO_COLLECTION = "raw_weather"
 
 
 SNOWFLAKE_USER = "timothee"
-SNOWFLAKE_PASSWORD = "TonMotDePasseSécurisé"
+SNOWFLAKE_PASSWORD = "22205731@Timothee"
 SNOWFLAKE_ACCOUNT = "kpjoeld-vfb30885"
 SNOWFLAKE_DATABASE = "weather"
 SNOWFLAKE_SCHEMA = "db_weather"
