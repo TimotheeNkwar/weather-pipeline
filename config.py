@@ -1,17 +1,18 @@
-# weather-pipeline/1_collect/config.py
+import os
+from dotenv import load_dotenv
 
-API_KEY = "83b8fe86a826201d9399b34b21885224"
+# Charge le fichier .env
+load_dotenv()
 
-CITIES = ["Paris", "Istanbul", "Lagos", "Nairobi", "New York"]
+API_KEY = os.getenv("API_KEY")
 
-MONGO_URI = "mongodb+srv://timotheenkwar16:22205731@pipeline.v8oxp4b.mongodb.net/?retryWrites=true&w=majority&appName=pipeline"
-MONGO_DB = "weatherDB"
-MONGO_COLLECTION = "raw_weather"
+MONGO_URI = os.getenv("MONGO_URI")
+MONGO_DB = os.getenv("MONGO_DB")
+MONGO_COLLECTION = os.getenv("MONGO_COLLECTION")
 
-
-SNOWFLAKE_USER = "timothee"
-SNOWFLAKE_PASSWORD = "22205731@Timothee"
-SNOWFLAKE_ACCOUNT = "kpjoeld-vfb30885"
-SNOWFLAKE_DATABASE = "weather"
-SNOWFLAKE_SCHEMA = "db_weather"
-SNOWFLAKE_WAREHOUSE = "POWER"
+SNOWFLAKE_USER = os.getenv("SNOWFLAKE_USER")
+SNOWFLAKE_PASSWORD = os.getenv("SNOWFLAKE_PASSWORD")
+SNOWFLAKE_ACCOUNT = os.getenv("SNOWFLAKE_ACCOUNT")
+SNOWFLAKE_DATABASE = os.getenv("SNOWFLAKE_DATABASE")
+SNOWFLAKE_SCHEMA = os.getenv("SNOWFLAKE_SCHEMA")
+SNOWFLAKE_WAREHOUSE = os.getenv("SNOWFLAKE_WAREHOUSE")
