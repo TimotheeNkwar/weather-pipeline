@@ -2,13 +2,20 @@
 
 import pandas as pd
 from sqlalchemy import create_engine
-from config import SNOWFLAKE_USER, SNOWFLAKE_PASSWORD, SNOWFLAKE_ACCOUNT, SNOWFLAKE_DATABASE, SNOWFLAKE_SCHEMA, SNOWFLAKE_WAREHOUSE
+from config import (
+    SNOWFLAKE_USER,
+    SNOWFLAKE_PASSWORD,
+    SNOWFLAKE_ACCOUNT,
+    SNOWFLAKE_DATABASE,
+    SNOWFLAKE_SCHEMA,
+    SNOWFLAKE_WAREHOUSE
+)
 from mongo_to_df import read_mongo
 from transform import clean_weather_data
 
 def get_engine():
     url = (
-        f"snowflake://{TIMOTHEE}:{22205731@Timothee}@{SNOWFLAKE_ACCOUNT}/"
+        f"snowflake://{SNOWFLAKE_USER}:{SNOWFLAKE_PASSWORD}@{SNOWFLAKE_ACCOUNT}/"
         f"{SNOWFLAKE_DATABASE}/{SNOWFLAKE_SCHEMA}?warehouse={SNOWFLAKE_WAREHOUSE}"
     )
     return create_engine(url)
