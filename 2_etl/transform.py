@@ -1,13 +1,11 @@
-# weather-pipeline/2_etl/transform.py
-
-import pandas as pd  # ✅ Import manquant
-
+import pandas as pd
 
 def clean_weather_data(df):
     records = []
     for _, row in df.iterrows():
-        city = row.get("name")
+        city = row.get("name") or row.get("city")
         main = row.get("main", {})
+        sys = row.get("sys", {})  # Corrected: Use sys for country
         weather = row.get("weather", [{}])[0]
         dt = row.get("fetched_at")
 
@@ -18,7 +16,11 @@ def clean_weather_data(df):
             "pressure": main.get("pressure"),
             "weather_main": weather.get("main"),
             "weather_description": weather.get("description"),
-            "fetched_at": dt
+            "fetched_at": dt,
+            "country": sys.get("country"),  # Corrected: sys.country
+            "wind_speed": row.get("wind", {}).get("speed"),
+            "temp_min": main.get("temp_min"),
+            "temp_max": main.get("temp_max")
         }
         records.append(record)
 
