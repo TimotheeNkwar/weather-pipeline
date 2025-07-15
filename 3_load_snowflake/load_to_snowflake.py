@@ -1,8 +1,6 @@
 from mongo_to_df import read_mongo
 from transform import clean_weather_data
 import snowflake.connector
-from config import *
-import pandas as pd
 from snowflake.connector.pandas_tools import write_pandas
 
 def load_to_snowflake(df, table_name="weather_data"):
