@@ -16,7 +16,7 @@ def load_to_snowflake(df, table_name="weather_data"):
     )
     cursor = conn.cursor()
 
-    # Créer la table si elle n'existe pas
+    # Create the table if it does not exist
     create_stmt = f"""
     CREATE TABLE IF NOT EXISTS {table_name} (
         city STRING,
@@ -35,19 +35,19 @@ def load_to_snowflake(df, table_name="weather_data"):
     """
     cursor.execute(create_stmt)
 
-    # Créer une table temporaire pour charger les données
+    # Create a temporary table to load the data
     temp_table = f"{table_name}_temp"
     cursor.execute(f"CREATE TEMPORARY TABLE {temp_table} LIKE {table_name}")
 
-    # Charger le DataFrame dans la table temporaire
+    # Load the DataFrame into the temporary table
     success, nchunks, nrows, _ = write_pandas(conn, df, temp_table)
     if not success:
-        print(f"❌ Échec du chargement dans la table temporaire {temp_table}")
+        print(f"❌ Failed to load into temporary table {temp_table}")
         cursor.close()
         conn.close()
         return
 
-    # Fusionner les données de la table temporaire vers la table finale
+    # Merge data from the temporary table into the final table
     merge_stmt = f"""
     MERGE INTO {table_name} AS target
     USING {temp_table} AS source
@@ -64,13 +64,13 @@ def load_to_snowflake(df, table_name="weather_data"):
     conn.commit()
     cursor.close()
     conn.close()
-    print(f"✅ {nrows} lignes traitées dans {table_name} (doublons ignorés).")
+    print(f"✅ {nrows} rows processed in {table_name} (duplicates ignored).")
 
 if __name__ == "__main__":
-    df_mongo = read_mongo()  # Tous les documents, sans limite
+    df_mongo = read_mongo()  # All documents, no limit
     df_clean = clean_weather_data(df_mongo)
 
-    # Convertir les colonnes datetime en string pour Snowflake
+    # Convert datetime columns to string for Snowflake
     for col in df_clean.select_dtypes(include=['datetime64[ns]', 'datetime64[ns, UTC]']).columns:
         df_clean[col] = df_clean[col].astype(str)
 

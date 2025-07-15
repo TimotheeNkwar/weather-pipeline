@@ -7,7 +7,7 @@ from config import API_KEY, MONGO_URI, MONGO_DB, MONGO_COLLECTION
 from datetime import datetime, timezone
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-# Charger les villes
+# Load cities
 cities_df = pd.read_csv(
     "C:\\Users\\KOVVO\\OneDrive\\Documents\\GitHub\\Data-Science-Projects\\projet1\\Schooll_Project\\Pipeline_Weather\\cities5000.txt",
     sep="\t", header=None, names=[
@@ -19,20 +19,18 @@ cities_df = pd.read_csv(
 
 cities = cities_df[["name", "latitude", "longitude"]].dropna().drop_duplicates().to_dict(orient="records")
 
-# Connexion MongoDB
+# MongoDB connection
 client = MongoClient(MONGO_URI)
 collection = client[MONGO_DB][MONGO_COLLECTION]
 
-# Créer un index unique sur 'city' pour éviter les doublons
+# Create unique index on 'city' to avoid duplicates
 try:
     collection.create_index([("city", 1)], unique=True)
 except Exception as e:
-    print(f"⚠️ Erreur lors de la création de l'index unique: {e}")
-    print(
-        "Vérifiez s'il existe des doublons dans la collection. Vous pouvez les supprimer avec une commande MongoDB si nécessaire.")
+    print(f"⚠️ Error creating unique index: {e}")
+    print("Check for duplicates in the collection. You may need to remove them with a MongoDB command.")
 
-
-# Fonction d'appel API avec ajout des champs demandés
+# API call function with added fields
 def fetch_current_weather(city):
     lat = city["latitude"]
     lon = city["longitude"]
@@ -55,22 +53,21 @@ def fetch_current_weather(city):
                 })
                 return data
             else:
-                print(f"❌ Données incomplètes pour {name} ({lat},{lon})")
+                print(f"❌ Incomplete data for {name} ({lat},{lon})")
         else:
-            print(f"❌ {name} ({lat},{lon}) : {response.status_code}")
+            print(f"❌ {name} ({lat},{lon}): HTTP {response.status_code}")
     except Exception as e:
-        print(f"⚠️ Erreur réseau pour {name} ({lat},{lon}): {e}")
+        print(f"⚠️ Network error for {name} ({lat},{lon}): {e}")
     return None
 
-
-# Fonction pour traiter un lot de villes
+# Process batch of cities
 def process_batch(batch_cities, existing_cities):
     batch_data = []
     errors = []
     for city in batch_cities:
         name = city["name"]
         if name in existing_cities:
-            print(f"⚠️ Donnée déjà existante pour {name}, ignorée")
+            print(f"⚠️ Data already exists for {name}, skipping")
             continue
 
         weather_data = fetch_current_weather(city)
@@ -80,27 +77,25 @@ def process_batch(batch_cities, existing_cities):
             errors.append(f"{name},{city['latitude']},{city['longitude']}")
     return batch_data, errors
 
-
-# Boucle principale
+# Main loop
 def main():
-    # Récupérer toutes les villes existantes dans la collection
+    # Get all existing cities in the collection
     existing_cities = set(collection.distinct("city"))
-    print(f"📋 {len(existing_cities)} villes déjà présentes dans la collection.")
+    print(f"📋 {len(existing_cities)} cities already in the collection.")
 
-    # Paramètres pour la parallélisation
-    max_workers = 10  # Nombre de threads (max 60 requêtes/minute)
-    batch_size = 50  # Taille des lots pour insertion
-    rate_limit_delay = 1.0  # Délai pour respecter 60 requêtes/minute
+    # Parallelization parameters
+    max_workers = 10  # Number of threads (max 60 requests/min)
+    batch_size = 50   # Batch size for insertion
+    rate_limit_delay = 1.0  # Delay to respect 60 requests/min
 
-    # Diviser les villes en lots pour l'insertion
+    # Split cities into batches
     batches = [cities[i:i + batch_size] for i in range(0, len(cities), batch_size)]
     total_inserted = 0
     all_errors = []
 
     for batch_idx, batch in enumerate(batches):
-        print(f"\n📊 Traitement du lot {batch_idx + 1}/{len(batches)} ({len(batch)} villes)")
+        print(f"\n📊 Processing batch {batch_idx + 1}/{len(batches)} ({len(batch)} cities)")
 
-        # Traiter le lot en parallèle
         batch_data = []
         batch_errors = []
         with ThreadPoolExecutor(max_workers=max_workers) as executor:
@@ -110,38 +105,37 @@ def main():
                 batch_data.extend(data)
                 batch_errors.extend(errors)
 
-        # Insérer les données en masse
+        # Bulk insert data
         if batch_data:
             try:
                 result = collection.insert_many(batch_data, ordered=False)
                 inserted_count = len(result.inserted_ids)
                 total_inserted += inserted_count
-                print(f"✅ {inserted_count} données insérées pour ce lot")
+                print(f"✅ {inserted_count} documents inserted for this batch")
             except Exception as e:
-                print(f"❌ Erreur lors de l'insertion en masse: {e}")
+                print(f"❌ Bulk insertion error: {e}")
                 for doc in batch_data:
                     try:
                         collection.insert_one(doc)
                         total_inserted += 1
-                        print(f"✅ Donnée insérée pour {doc['city']}")
+                        print(f"✅ Document inserted for {doc['city']}")
                     except Exception as e:
-                        print(f"❌ Échec insertion pour {doc['city']}: {e}")
+                        print(f"❌ Failed insertion for {doc['city']}: {e}")
 
-        # Ajouter les erreurs au fichier avec encodage UTF-8
+        # Log errors to file with UTF-8 encoding
         if batch_errors:
-            with open("erreurs_villes.txt", "a", encoding="utf-8") as f:
+            with open("city_errors.txt", "a", encoding="utf-8") as f:
                 f.write("\n".join(batch_errors) + "\n")
             all_errors.extend(batch_errors)
 
-        # Respecter la limite de l'API
+        # Respect API rate limit
         time.sleep(rate_limit_delay)
 
-    print(f"\n✅ Total: {total_inserted} nouvelles données insérées.")
+    print(f"\n✅ Total: {total_inserted} new documents inserted.")
     if all_errors:
-        print(f"❌ {len(all_errors)} villes ont échoué (voir erreurs_villes.txt).")
+        print(f"❌ {len(all_errors)} cities failed (see city_errors.txt).")
 
-    client.close()  # Fermer la connexion MongoDB
-
+    client.close()  # Close MongoDB connection
 
 if __name__ == "__main__":
     main()
