@@ -8,7 +8,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 
 # Load cities
 cities_df = pd.read_csv(
-    "C:\\Users\\KOVVO\\OneDrive\\Documents\\GitHub\\Data-Science-Projects\\projet1\\Schooll_Project\\Pipeline_Weather\\cities5000.txt",
+    "cities5000.txt",
     sep="\t", header=None, names=[
         "geonameid", "name", "asciiname", "alternatenames", "latitude", "longitude",
         "feature class", "feature code", "country code", "cc2", "admin1 code", "admin2 code",
