@@ -4,7 +4,7 @@
 This project involves the design and implementation of a comprehensive data pipeline to collect, process, and store weather data for advanced analytics. The pipeline ingests raw weather data into MongoDB, transforms and cleans it using Python, and loads the processed data into Snowflake for efficient querying and analysis.
 
 ## Key Features
-- **Data Ingestion**: Collects raw weather data from external sources (e.g., weather APIs) and stores it in a MongoDB NoSQL database for flexible storage.
+- **Data Ingestion**: Collects raw weather data from external sources ( weather APIs) and stores it in a MongoDB NoSQL database for flexible storage.
 - **Data Transformation**: Utilizes Python and pandas to extract data from MongoDB, clean it by removing unnecessary fields (e.g., `_id`), and structure it into analysis-ready DataFrames.
 - **Data Storage**: Loads the cleaned and transformed data into Snowflake, a cloud-based data warehouse, enabling scalable and high-performance analytics.
 - **Error Handling**: Implements robust error management to handle connection issues, empty datasets, or data inconsistencies, ensuring pipeline reliability.
