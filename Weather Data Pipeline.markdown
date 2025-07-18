@@ -1,36 +1,28 @@
-# Weather Data Pipeline
+# Weather Data Pipeline to Snowflake
 
 ## Overview
-This project collects, processes, and stores weather data for multiple cities. Data is fetched from the OpenWeatherMap API, cleaned, and then stored in MongoDB and Snowflake for further analysis.
+This project involves the design and implementation of a comprehensive data pipeline to collect, process, and store weather data for advanced analytics. The pipeline ingests raw weather data into MongoDB, transforms and cleans it using Python, and loads the processed data into Snowflake for efficient querying and analysis.
 
----
+## Key Features
+- **Data Ingestion**: Collects raw weather data from external sources (e.g., weather APIs) and stores it in a MongoDB NoSQL database for flexible storage.
+- **Data Transformation**: Utilizes Python and pandas to extract data from MongoDB, clean it by removing unnecessary fields (e.g., `_id`), and structure it into analysis-ready DataFrames.
+- **Data Storage**: Loads the cleaned and transformed data into Snowflake, a cloud-based data warehouse, enabling scalable and high-performance analytics.
+- **Error Handling**: Implements robust error management to handle connection issues, empty datasets, or data inconsistencies, ensuring pipeline reliability.
+- **Automation**: Designed for scalability and automation, supporting large-scale weather data processing with efficient resource management.
 
-## Components
+## Technologies Used
+- **Python**: Core language for data extraction, transformation, and cleaning.
+- **pandas**: For efficient data manipulation and transformation into structured formats.
+- **pymongo**: For seamless interaction with MongoDB to retrieve raw weather data.
+- **MongoDB**: NoSQL database for initial storage of unstructured weather data.
+- **Snowflake**: Cloud data warehouse for storing and analyzing processed data.
+- **APIs (optional)**: Integration with weather APIs (e.g., OpenWeatherMap) for real-time data collection.
 
-### 1. Data Extraction
-- Fetch current weather data using OpenWeatherMap API.
-- Supports parallel requests with rate limiting to respect API limits.
-- Handles errors and logs failed city fetches.
+## Achievements
+- Built an end-to-end data pipeline that seamlessly integrates weather data from MongoDB to Snowflake, enabling advanced analytics and reporting.
+- Demonstrated proficiency in data engineering by implementing a robust ETL (Extract, Transform, Load) process with Python and cloud technologies.
+- Ensured data quality through cleaning and transformation, making the data suitable for business intelligence and forecasting applications.
+- Optimized resource usage with proper MongoDB connection management and efficient data loading into Snowflake.
 
-### 2. Data Cleaning
-- Cleans and normalizes raw API data.
-- Extracts relevant fields such as temperature, humidity, wind speed, and timestamps.
-
-### 3. Data Storage
-- Stores raw and cleaned data in MongoDB.
-- Loads cleaned data into Snowflake, creating the table if necessary.
-- Avoids duplicates by using unique indexes and merge logic.
-
----
-
-## Setup
-
-### Prerequisites
-- Python 3.x
-- MongoDB instance and credentials
-- Snowflake account and credentials
-- OpenWeatherMap API key
-
-### Install dependencies
-```bash
-pip install pandas pymongo requests snowflake-connector-python
+## Impact
+This project highlights my expertise in designing scalable data pipelines for real-world applications. By leveraging MongoDB, Python, and Snowflake, I created a system that transforms raw weather data into a structured format ready for advanced analytics, such as weather trend analysis or predictive modeling. The pipeline’s flexibility and robustness make it adaptable for integration with various data sources and analytics platforms.
