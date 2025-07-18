@@ -5,9 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0a2e1852-0b41-4b66-9e8c-8cc1e12e938b" name="Changes" comment="update">
-      <change afterPath="$PROJECT_DIR$/streamlit_app/app.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Pipeline_Weather.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Pipeline_Weather.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,7 +52,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/TimotheeNkwar/weather-pipeline.git&quot;,
-    &quot;accountId&quot;: &quot;63d037a0-b028-4db4-a933-3789b26045bb&quot;
+    &quot;accountId&quot;: &quot;99c34f19-5a55-499b-995f-74f708fc0a4e&quot;
   }
 }</component>
   <component name="KubernetesApiPersistence">{}</component>
@@ -66,43 +67,43 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Docker.docker-compose.yaml: Compose Deployment.executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Python.config.executor": "Run",
-    "Python.fetch_weather.executor": "Run",
-    "Python.insert_mongo.executor": "Run",
-    "Python.laucher.executor": "Run",
-    "Python.load_to_snowflake.executor": "Run",
-    "Python.mongo_to_df.executor": "Run",
-    "Python.my_config.executor": "Run",
-    "Python.streamlit.executor": "Run",
-    "Python.transform.executor": "Run",
-    "Python.weather_dag.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "dart.analysis.tool.window.visible": "false",
-    "deletionFromPopupRequiresConfirmation": "false",
-    "git-widget-placeholder": "main",
-    "junie.onboarding.icon.badge.shown": "true",
-    "last_opened_file_path": "C:/Users/KOVVO/OneDrive/Documents/GitHub/Data-Science-Projects/projet1/Schooll_Project/Pipeline_Weather",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Docker.docker-compose.yaml: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Python.config.executor&quot;: &quot;Run&quot;,
+    &quot;Python.fetch_weather.executor&quot;: &quot;Run&quot;,
+    &quot;Python.insert_mongo.executor&quot;: &quot;Run&quot;,
+    &quot;Python.laucher.executor&quot;: &quot;Run&quot;,
+    &quot;Python.load_to_snowflake.executor&quot;: &quot;Run&quot;,
+    &quot;Python.mongo_to_df.executor&quot;: &quot;Run&quot;,
+    &quot;Python.my_config.executor&quot;: &quot;Run&quot;,
+    &quot;Python.streamlit.executor&quot;: &quot;Run&quot;,
+    &quot;Python.transform.executor&quot;: &quot;Run&quot;,
+    &quot;Python.weather_dag.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;deletionFromPopupRequiresConfirmation&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/timothee/PycharmProjects/weather-pipeline&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mongo"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mongo&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\KOVVO\OneDrive\Documents\GitHub\Data-Science-Projects\projet1\Schooll_Project\Pipeline_Weather" />
@@ -114,7 +115,7 @@
       <recent name="C:\Users\KOVVO\OneDrive\Documents\GitHub\Data-Science-Projects\projet1\Schooll_Project\Pipeline_Weather" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.config">
     <configuration name="config" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Pipeline_Weather" />
       <option name="ENV_FILES" value="" />
@@ -219,8 +220,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-09060db00ec0-JavaScript-PY-251.26927.90" />
-        <option value="bundled-python-sdk-41e8cd69c857-64d779b69b7a-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-251.26927.90" />
+        <option value="bundled-python-sdk-4c141bd692a7-e2d783800521-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-251.26927.90" />
       </set>
     </attachedChunks>
   </component>
@@ -262,6 +262,7 @@
       <workItem from="1752824121946" duration="24000" />
       <workItem from="1752824635781" duration="154000" />
       <workItem from="1752856714389" duration="716000" />
+      <workItem from="1752874521508" duration="695000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <option name="closed" value="true" />
