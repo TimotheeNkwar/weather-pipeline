@@ -5,7 +5,7 @@ def clean_weather_data(df):
     for _, row in df.iterrows():
         city = row.get("name") or row.get("city")
         main = row.get("main", {})
-        sys = row.get("sys", {})  # Corrected: Use sys for country
+        sys = row.get("sys", {})  
         weather = row.get("weather", [{}])[0]
         dt = row.get("fetched_at")
 
