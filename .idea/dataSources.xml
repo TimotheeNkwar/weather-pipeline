@@ -8,5 +8,12 @@
       <jdbc-url>mongodb+srv://pipeline.v8oxp4b.mongodb.net/?retryWrites=true&amp;w=majority&amp;appName=pipeline</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="@localhost" uuid="448195ac-0d53-4cae-8b13-300d2f8a81ed">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>
